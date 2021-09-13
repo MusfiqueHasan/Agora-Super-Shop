@@ -1,8 +1,8 @@
 const loadProducts = () => {
-  const url = `https://fakestoreapi.com/products`;
+  const url = `/js/json.js`;
   fetch(url)
     .then((response) => response.json())
-    .then((data) => { showProducts(data)});
+    .then((data) => { showProducts(data) });
 };
 loadProducts();
 
@@ -13,8 +13,6 @@ const showProducts = (products) => {
   for (const product of allProducts) {
     const image = product.image;
     const rating = product.rating.rate;
-    
-    // const rate= getRatings(rating);
     const div = document.createElement("div");
     div.classList.add("product");
     div.innerHTML = `<div class="single-product ">
@@ -23,12 +21,10 @@ const showProducts = (products) => {
     </div>
     <h3 class="fs-3 fw-bold ">${product.title}</h3>
     <p class="fw-bold">Category: <span class=" fw-light">${product.category}</span></p>
-    <p class="fw-bold">Vote count: <span class=" fw-light">${product.rating.count}</span></p>
-    <div class="rate" >
+    <p class="fw-bold">Vote count: <span class=" fw-light">${product.rating.count}</span></p>    
     <p class="number-rating fw-bold"> Average rating ${rating}/5</p>
     <div class="stars-outer">
-    <div class="stars-inner" id="inner-stars" ></div>       
-    </div>
+    <div class="stars-inner" style="width:${((rating / 5) * 100)}%"></div>       
     </div>
     <h2 class="fw-bold ">Price: $ ${product.price}</h2>
     <button onclick="addToCart(${product.id},${product.price})" id="addToCart-btn" class="buy-now btn btn-info">add to cart</button>
@@ -37,28 +33,6 @@ const showProducts = (products) => {
     document.getElementById("all-products").appendChild(div);
     }
   };
-
-  
-  // Get ratings
-  const getRatings = (ratings) => {
-    
-   
-    // Total Stars
-    for (let rating in ratings) {
-     
-      const rate=  document.querySelector(`.stars-inner`);
-      rate.style.width = Math.round(((rating / 5) * 100) / 10) * 10;
-      return rate
-    }
-
-};
-
-
-
-
-
-
-
 
 
 let count = 0;
